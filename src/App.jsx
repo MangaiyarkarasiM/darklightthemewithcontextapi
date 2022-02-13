@@ -8,9 +8,11 @@ import HomePage from "./pages/home"
 import ProductDetailPage from './pages/productDetail';
 import ProductsPage from './pages/products';
 import TermsPage from "./pages/terms";
+import './App.css';
 
 const App = () => {
-  const [cartItems, setCartItems] = useState([])
+  const [cartItems, setCartItems] = useState([]);
+  let [dark,setDark] = useState(false);
   const isMounted = useRef(false);
 
   useEffect(() => {
@@ -19,16 +21,30 @@ const App = () => {
     }
   }, [cartItems])
   
+  useEffect(()=>{
+    if(isMounted.current)
+    {
+      sessionStorage.setItem('__DARKTHEME__',dark);
+    }
+  },[dark])
+
   useEffect(() => {
     const ls = localStorage.getItem('__CART__');
     const d = JSON.parse(ls)
-  
+    const ss = sessionStorage.getItem('__DARKTHEME__');
+    const darktheme = JSON.parse(ss)
     if(cartItems?.length === 0 && d?.length) {
       setCartItems(d)
+    }
+    if(darktheme)
+    {
+      setDark(true);
     }
 
     isMounted.current = true;
   }, [])
+
+ 
 
   // { title: 'something' }
   const addToCart = item => {
@@ -65,19 +81,26 @@ const App = () => {
     })
   }
 
+ const updateTheme = () =>{
+   setDark((theme) => !theme);
+ }
+
   return (
-    <GlobalProvider value={{ cartItems, addToCart, updateCart }}>
-      <Layout updateCartItems={setCartItems}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/terms" element={<TermsPage />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/deal/:dealId" element={<DealInfoPage />} />
-          <Route path="/product/:productTitle" element={<ProductDetailPage />} />
-        </Routes>
-      </Layout>
-    </GlobalProvider>
+    <div className={dark?'dark':null}>
+      <GlobalProvider value={{ cartItems, addToCart, updateCart, dark, updateTheme }}>
+        <Layout updateCartItems={setCartItems}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/deal/:dealId" element={<DealInfoPage />} />
+            <Route path="/product/:productTitle" element={<ProductDetailPage />} />
+          </Routes>
+        </Layout>
+      </GlobalProvider>
+    </div>
+    
   )
 }
 

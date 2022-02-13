@@ -3,7 +3,7 @@
   background-color: aliceblue;
   border-radius: 5px;
   border: 1px solid #ccc;
-  margin: 5px;
+  margin: 15px 10px;
   display: inline-block;
   min-width: 200px;
   text-align: center;
@@ -12,6 +12,10 @@
 .card-wrapper > img {
   height: 140px;
   width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 .card-wrapper > h3 {
   margin: 0;

@@ -107,13 +107,13 @@ const ProductsPage = () => {
   }
 
   return (
-    <div>
-      <h1>Products Page</h1>
+    <div style={{height: "100vh"}}>
+      <h1 className='my-2'>Products Page</h1>
 
       <PrimaryButton onClick={() => setShowModal(true)}>
         Add Product
       </PrimaryButton>
-      <div>
+      <div className='my-2'>
         {
           products.map(item => {
             return (
@@ -134,17 +134,17 @@ const ProductsPage = () => {
         }
       </div>
       <Modal title={formData.id ? 'Edit Product' : 'Add Product'} open={showModal}>
-        <div className='flex direction-column'>
+        <div className='flex direction-column my-2'>
           <input className='border' type={'text'} value={formData.name} name='name'  placeholder='Name' onChange={onInputChange} />
           <input className='border' type={'text'} value={formData.desc} name='desc'  placeholder='Desc' onChange={onInputChange} />
           <input className='border' type={'text'} value={formData.image} name='image' placeholder='Image url'  onChange={onInputChange} />
           {
             formData.id ? 
-              <PrimaryButton onClick={onUpdateProduct}>Update</PrimaryButton>
-              : <PrimaryButton onClick={onAddProduct}>Add</PrimaryButton>
+              <PrimaryButton className='mx-2' onClick={onUpdateProduct}>Update</PrimaryButton>
+              : <PrimaryButton className='mx-2' onClick={onAddProduct}>Add</PrimaryButton>
           }
         </div>
-        <PrimaryButton onClick={() => {setFormData({}); setShowModal(false)}}>
+        <PrimaryButton className='my-2' onClick={() => {setFormData({}); setShowModal(false)}}>
           Close
         </PrimaryButton>
       </Modal>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom';
-import Card from '../Card/Card'
-import './ProductsList.css'
+import Card from '../Card/Card';
+import './ProductsList.css';
+import { GlobalContext } from '../../context/globalContext';
 
 // react state hook
 // always define hooks at the top of a component
@@ -9,6 +10,7 @@ import './ProductsList.css'
 // useEffect > (method, depArr)
 
 function ProductsList(props) {
+  let {dark} = useContext(GlobalContext);
   const [val, setValue] = useState('')
   useEffect(() => {
     console.log('ProductsList Component', val)
@@ -23,12 +25,12 @@ function ProductsList(props) {
   }
 
   return (
-    <div className='list-container'>
+    <div className='list-container rounded' style={ dark?{backgroundColor :"#222222", color: "white"}:null} >
       <div className='list-header'>
         <div className='title-section'>
-          <h2>{props.title}{props.subtitle ? <small>{props.subtitle}</small> : null}</h2>
+          <h2>{props.title} {props.subtitle ? <small>{props.subtitle}</small> : null}</h2>
           <input type='text' value={val} onChange={onInputChange} />
-          <span>Typed: {val}</span>
+          <span className='ml-1'>Typed: {val}</span>
         </div>
         <button>View All</button>
       </div>

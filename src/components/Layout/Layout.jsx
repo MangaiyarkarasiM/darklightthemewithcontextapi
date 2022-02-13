@@ -7,7 +7,7 @@ import Modal from "../Modal/Modal";
 import ProductItem from '../ProductItem/ProductItem';
 
 const Layout = (props) => {
-  const { cartItems } = useContext(GlobalContext);
+  const { cartItems, dark } = useContext(GlobalContext);
   const [showModal, setShowModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
@@ -34,7 +34,7 @@ const Layout = (props) => {
       <Modal title='Your Cart!' showFooter open={showModal} onClose={() => setShowModal(false)}>
         {
           cartItems.length ? (
-            <div>
+            <div style={ dark?{backgroundColor :"#222222", color: "white"}:null}>
               <h4>List of Products</h4>
               <ul>
                 {
@@ -53,7 +53,7 @@ const Layout = (props) => {
               </ul>
             </div>
           ) : (
-            <div className='text-center p-4'>
+            <div className='text-center p-4' style={ dark?{backgroundColor :"#222222", color: "white"}:null}>
               <h1 className='text-lg'>Continue Shopping!</h1>
             </div>
           )
@@ -67,9 +67,9 @@ const Layout = (props) => {
         {/* Sign Up/Login Option */}
         {
           showLogin ? (
-            <p className='text-grey'>Don't have an account? <span onClick={() => setShowLogin(false)}>Sign up here.</span></p>
+            <p className='text-grey'>Don't have an account? <span className={ dark? 'text-rose-900':'text-blue-400'} onClick={() => setShowLogin(false)}>Sign up here.</span></p>
           ) : (
-            <p className='text-grey'>Already have an account? <span onClick={() => setShowLogin(true)}>Login here.</span></p>
+            <p className='text-grey'>Already have an account? <span className={ dark? 'text-rose-900':'text-blue-400'}  onClick={() => setShowLogin(true)}>Login here.</span></p>
           )
         }
       </Modal>

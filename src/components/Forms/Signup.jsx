@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup';
+import { GlobalContext } from '../../context/globalContext';
 
 const signupValidationSchema = Yup.object().shape({
   email: Yup.string().email('Enter valid email!').required('Email is required!'),
@@ -9,6 +10,7 @@ const signupValidationSchema = Yup.object().shape({
 })
 
 const Signup = () => {
+  let {dark} = useContext(GlobalContext);
   const onSignup = (v) => {
     console.log('Signup Form > ', v)
   }
@@ -24,7 +26,7 @@ const Signup = () => {
             return (
               <Form className='w-3/5'>
                 <div className='mb-4'>
-                  <label className='block text-gray-700 text-sm font-bold mb-2'>Email</label>
+                  <label className='block text-gray-700 text-sm font-bold mb-2' style={ dark?{ color: "white"}:null}>Email</label>
                   <Field
                     name="email"
                     type="email"
@@ -33,7 +35,7 @@ const Signup = () => {
                   <ErrorMessage name='email' render={msg => <small className='text-red-600'>{msg}</small>} />
                 </div>
                 <div>
-                  <label className='block text-gray-700 text-sm font-bold mb-2'>Passord</label>
+                  <label className='block text-gray-700 text-sm font-bold mb-2' style={ dark?{ color: "white"}:null}>Passord</label>
                   <Field
                     name="password"
                     type="password"
@@ -42,7 +44,7 @@ const Signup = () => {
                   <ErrorMessage name='password' render={msg => <small className='text-red-600'>{msg}</small>} />
                 </div>
                 <div>
-                  <label className='block text-gray-700 text-sm font-bold mb-2 mt-2'>Confirm Passord</label>
+                  <label className='block text-gray-700 text-sm font-bold mb-2 mt-2' style={ dark?{ color: "white"}:null}>Confirm Passord</label>
                   <Field
                     name="confirm_password"
                     type="password"

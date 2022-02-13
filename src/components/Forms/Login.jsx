@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
+import { GlobalContext } from '../../context/globalContext';
 
 /**
  * Email Input
@@ -16,6 +17,8 @@ const loginFormValidation = Yup.object().shape({
 })
 
 const Login = () => {
+  let {dark} = useContext(GlobalContext);
+
   const { values, errors, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {},
     validationSchema: loginFormValidation,
@@ -25,10 +28,10 @@ const Login = () => {
   })
 
   return (
-    <div className='px-10 py-4'>
+    <div className='px-10 py-4' style={ dark?{ color: "white"}:null}>
       <form onSubmit={handleSubmit} className='w-3/5'>
         <div className='mb-4'>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>Email</label>
+          <label className='block text-gray-700 text-sm font-bold mb-2' style={ dark?{ color: "white"}:null}>Email</label>
           <input
             name="email"
             type='email'
@@ -40,7 +43,7 @@ const Login = () => {
           {errors.email && <small className='text-red-600'>{errors.email}</small>}
         </div>
         <div>
-        <label className='block text-gray-700 text-sm font-bold mb-2'>Passord</label>
+        <label className='block text-gray-700 text-sm font-bold mb-2' style={ dark?{ color: "white"}:null}>Password</label>
           <input
             name="password"
             type='password'
